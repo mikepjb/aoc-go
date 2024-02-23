@@ -2,61 +2,35 @@ package main
 
 import (
 	_ "embed"
+	"flag"
 	"fmt"
-	"strconv"
-	"strings"
+
+	"juxt.pro/hackathon/internal/day1"
 )
 
-// each line, one or more numerical chars
-// get he first and the last
-// the first may also be the last
-
-//go:embed input1.txt
-var inputDayOne string
+//go:embed ascii.txt
+var ascii string
 
 func main() {
-	fmt.Println("hello world")
-	// fmt.Println(inputDayOne)
-	lines := strings.Split(strings.Trim(inputDayOne, "\n"), "\n")
-	fmt.Println(SumLines(lines))
-}
+	dayPtr := flag.Int("day", 1, "the given day you want to solve")
+	partPtr := flag.Int("part", 1, "the given part of the day you want to solve")
 
-func reverse(str string) (result string) {
-	for _, v := range str {
-		result = string(v) + result
-	}
-	return result
-}
+	flag.Parse()
 
-func FirstNumber(line string) string {
-	pos := strings.IndexAny(line, "123456789")
-	if pos != -1 {
-		return string(line[pos])
-	}
-	return "NOTFOUND"
-}
+	fmt.Println(ascii)
+	fmt.Println("Advent of Code: Go Edition")
+	fmt.Println("==========================")
 
-func LastNumber(line string) string {
-	rl := reverse(line)
-	pos := strings.IndexAny(rl, "123456789")
-	if pos != -1 {
-		return string(rl[pos])
-	}
-	return "NOTFOUND"
-}
-
-func FirstLast(line string) string {
-	return FirstNumber(line) + LastNumber(line)
-}
-
-func SumLines(lines []string) int {
-	total := 0
-	for _, l := range lines {
-		n, err := strconv.Atoi(FirstLast(l))
-		if err != nil {
-			fmt.Printf("Could not convert %v to number\n", l)
+	switch *dayPtr {
+	case 1:
+		if *partPtr == 1 {
+			day1.PartOne()
+		} else {
+			day1.PartTwo()
 		}
-		total += n
+	case 2:
+		fmt.Println("not yet..")
+	default:
+		fmt.Println("You shouldn't be here..")
 	}
-	return total
 }

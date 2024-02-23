@@ -2,4 +2,4 @@ run:
 	go run ./cmd/main.go
 
 test:
-	go test ./cmd/
+	go test ./internal/**/*.go
