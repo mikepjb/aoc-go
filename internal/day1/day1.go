@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-//go:embed input1.txt
+//go:embed input1-henry.txt
 var inputDayOne string
 
 func PartOne() {
@@ -18,6 +18,7 @@ func PartOne() {
 
 func PartTwo() {
 	fmt.Println("part two!")
+	//lines := strings.Split(strings.Trim(inputDayOne, "\n"), "\n")
 }
 
 func reverse(str string) (result string) {
@@ -27,25 +28,27 @@ func reverse(str string) (result string) {
 	return result
 }
 
-func FirstNumber(line string) string {
+func FirstNumber(line string) (int,string) {
 	pos := strings.IndexAny(line, "123456789")
 	if pos != -1 {
-		return string(line[pos])
+		return pos, string(line[pos])
 	}
-	return "NOTFOUND"
+	return pos, "NOTFOUND"
 }
 
-func LastNumber(line string) string {
+func LastNumber(line string) (int, string) {
 	rl := reverse(line)
 	pos := strings.IndexAny(rl, "123456789")
 	if pos != -1 {
-		return string(rl[pos])
+		return pos, string(rl[pos])
 	}
-	return "NOTFOUND"
+	return pos, "NOTFOUND"
 }
 
 func FirstLast(line string) string {
-	return FirstNumber(line) + LastNumber(line)
+	_, f := FirstNumber(line)
+    _, l := LastNumber(line)
+	return  f + l 
 }
 
 func SumLines(lines []string) int {
